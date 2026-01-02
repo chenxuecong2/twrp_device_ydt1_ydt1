@@ -1,0 +1,19 @@
+ro.sys.usb.mtp.whql.enable=0
+ro.sys.usb.storage.type=mtp
+ro.boot.hardware=mt6761
+ro.hardware=mt6761
+ro.vendor.mediatek.platform=MT6761
+ro.vendor.mtk_f2fs_enable=0
+ro.hardware.egl=meow
+ro.board.platform=mt6761
+ro.vendor.mtk_microtrust_tee_support=1
+# Others
+ro.treble.enabled=true
+ro.secure=0
+ro.adb.secure=0
+ro.debuggable=1
+persist.sys.usb.config=mtp,adb
+persist.service.adb.enable=1
+persist.service.debuggable=1
+ro.boot.dynamic_partitions=true
+sys.usb.ffs.aio_compat=true

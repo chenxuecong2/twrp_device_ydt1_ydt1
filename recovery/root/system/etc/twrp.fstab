@@ -1,45 +1,81 @@
-/super          emmc    /dev/block/platform/bootdevice/by-name/super    flags=display="Super";backup=1
+#
+# mount point    fstype  device                             device2                flags
 
-/system         ext4    /dev/block/mapper/system     flags=display="System";backup=1;logical
-/vendor         ext4    /dev/block/mapper/vendor     flags=display="Vendor";backup=1;logical
-/product        ext4    /dev/block/mapper/product    flags=display="Product";backup=1;logical
+# Dynamic partition
 
-/metadata       ext4    /dev/block/platform/bootdevice/by-name/md_udc            flags=display=metadata
-/data           ext4    /dev/block/platform/bootdevice/by-name/userdata          flags=display="Data";encryptable=footer;length=-16384;reservedsize=128M
+/system		    ext4	/dev/block/mapper/system      flags=backup=1;display="System ext4";logical
+/vendor             ext4        /dev/block/mapper/vendor      flags=backup=1;display="Vendor ext4";logical
+/product            ext4        /dev/block/mapper/product     flags=backup=1;display="Product ext4";logical
 
-/cache          ext4    /dev/block/platform/bootdevice/by-name/cache             flags=display=cache
-/mnt/vendor/protect_f   ext4    /dev/block/platform/bootdevice/by-name/protect1  flags=display=protect_f
-/mnt/vendor/protect_s   ext4    /dev/block/platform/bootdevice/by-name/protect2  flags=display=protect_s
-/mnt/vendor/nvdata      ext4    /dev/block/platform/bootdevice/by-name/nvdata    flags=display=nvdata
-/mnt/vendor/nvcfg       ext4    /dev/block/platform/bootdevice/by-name/nvcfg     flags=display=nvcfg
-auto                    auto    /devices/platform/externdevice*                  flags=display=auto
-auto                    vfat    /devices/platform/mt_usb*                        flags=display=auto
-/persistent             emmc    /dev/block/platform/bootdevice/by-name/frp       flags=display=persistent
-/nvram                  emmc    /dev/block/platform/bootdevice/by-name/nvram     flags=display=nvram
-/proinfo                emmc    /dev/block/platform/bootdevice/by-name/proinfo   flags=display=proinfo
-/bootloader             emmc    /dev/block/platform/bootdevice/by-name/lk        flags=display=bootloader
-/bootloader2            emmc    /dev/block/platform/bootdevice/by-name/lk2       flags=display=bootloader2
-/misc                   emmc    /dev/block/platform/bootdevice/by-name/para      flags=display=misc
-/recovery               emmc    /dev/block/platform/bootdevice/by-name/recovery  flags=display=recovery
-/boot                   emmc    /dev/block/platform/bootdevice/by-name/boot      flags=display=boot
-/vbmeta_vendor          emmc    /dev/block/platform/bootdevice/by-name/vbmeta_vendor     flags=display=vbmeta_vendor
-/vbmeta_system          emmc    /dev/block/platform/bootdevice/by-name/vbmeta_system     flags=display=vbmeta_system
-/logo                   emmc    /dev/block/platform/bootdevice/by-name/logo      flags=display=logo
-/expdb                  emmc    /dev/block/platform/bootdevice/by-name/expdb     flags=display=expdb
-/seccfg                 emmc    /dev/block/platform/bootdevice/by-name/seccfg    flags=display=seccfg
-/tee1                   emmc    /dev/block/platform/bootdevice/by-name/tee1      flags=display=tee1
-/tee2                   emmc    /dev/block/platform/bootdevice/by-name/tee2      flags=display=tee2
-/scp1                   emmc    /dev/block/platform/bootdevice/by-name/scp1      flags=display=scp1
-/scp2                   emmc    /dev/block/platform/bootdevice/by-name/scp2      flags=display=scp2
-/sspm_1                 emmc    /dev/block/platform/bootdevice/by-name/sspm_1    flags=display=sspm_1
-/sspm_2                 emmc    /dev/block/platform/bootdevice/by-name/sspm_2    flags=display=sspm_2
-/md1img                 emmc    /dev/block/platform/bootdevice/by-name/md1img    flags=display=md1img
-/md1dsp                 emmc    /dev/block/platform/bootdevice/by-name/md1dsp    flags=display=md1dsp
-/md1arm7                emmc    /dev/block/platform/bootdevice/by-name/md1arm7   flags=display=md1arm7
-/md3img                 emmc    /dev/block/platform/bootdevice/by-name/md3img    flags=display=md3img
-/spmfw                  emmc    /dev/block/platform/bootdevice/by-name/spmfw     flags=display=spmfw
-/boot_para              emmc    /dev/block/platform/bootdevice/by-name/boot_para flags=display=boot_para
-/dtbo1                  emmc    /dev/block/platform/bootdevice/by-name/dtbo1     flags=display=dtbo1
-/dtbo2                  emmc    /dev/block/platform/bootdevice/by-name/dtbo2     flags=display=dtbo2
-/dtbo                   emmc    /dev/block/platform/bootdevice/by-name/dtbo      flags=display=dtbo
-/vbmeta                 emmc    /dev/block/platform/bootdevice/by-name/vbmeta    flags=display=vbmeta
+/system_image       emmc      /dev/block/mapper/system        flags=display="System image";backup=1;flashimg=1;logical
+/vendor_image       emmc      /dev/block/mapper/vendor        flags=display="Vendor image";backup=1;flashimg=1;logical
+/product_image      emmc      /dev/block/mapper/product       flags=display="Product image";backup=1;flashimg=1;logical
+
+# Core Partitions
+/metadata             ext4    /dev/block/platform/bootdevice/by-name/md_udc         flags=backup=1;display="metadata"
+#/md_udc		    emmc	/dev/block/platform/bootdevice/by-name/md_udc   flags=backup=1
+#/metadata	    emmc	/dev/block/platform/bootdevice/by-name/metadata flags=backup=1
+
+# Common partition
+/data            ext4    /dev/block/platform/bootdevice/by-name/userdata           flags=fileencryption=aes-256-cts
+/boot            emmc    /dev/block/platform/bootdevice/by-name/boot               flags=backup=1;display="Boot";flashimg=1
+/dtbo            emmc    /dev/block/platform/bootdevice/by-name/dtbo               flags=backup=1;display="Dtbo";flashimg=1
+/dtbo1            emmc    /dev/block/platform/bootdevice/by-name/dtbo1               flags=backup=1;display="dtbo1"
+/dtbo2            emmc    /dev/block/platform/bootdevice/by-name/dtbo2               flags=backup=1;display="dtbo2"
+/cache           ext4    /dev/block/platform/bootdevice/by-name/cache              flags=backup=1;wipeingui;wipeduringfactoryreset
+/recovery	    emmc	/dev/block/platform/bootdevice/by-name/recovery         flags=display="Recovery";backup=1;flashimg=1
+/persist         ext4    /dev/block/platform/bootdevice/by-name/persist            flags=backup=1;display="Persist"
+/persist_image   emmc    /dev/block/platform/bootdevice/by-name/persist            flags=backup=1;display="Persist Image";flashimg=1
+/vbmeta		    emmc	/dev/block/platform/bootdevice/by-name/vbmeta           flags=display="vbmeta";backup=1;flashimg=1
+/vbmeta_system   emmc    /dev/block/platform/bootdevice/by-name/vbmeta_system      flags=backup=1;display="vbmeta_system";flashimg=1
+/vbmeta_vendor   emmc    /dev/block/platform/bootdevice/by-name/vbmeta_vendor      flags=backup=1;display="vbmeta_vendor";flashimg=1
+
+# MediaTek partitions
+/bootloader      emmc    /dev/block/platform/bootdevice/by-name/lk                 flags=backup=1;display="Bootloader (lk)";flashimg=1
+/bootloader2     emmc    /dev/block/platform/bootdevice/by-name/lk2                flags=backup=1;subpartitionof=/bootloader
+/logo		    emmc	/dev/block/platform/bootdevice/by-name/logo             flags=display="logo";backup=1;flashimg=1
+/expdb		    emmc	/dev/block/platform/bootdevice/by-name/expdb             flags=display="expdb";backup=1
+/seccfg		    emmc	/dev/block/platform/bootdevice/by-name/seccfg           flags=display="SecCfg";backup=1
+/misc		    emmc	/dev/block/platform/bootdevice/by-name/para             flags=display="para_misc";backup=1;flashimg=1
+/boot_para	    emmc	/dev/block/platform/bootdevice/by-name/boot_para        flags=display="boot_para";backup=1
+/proinfo	    emmc	/dev/block/platform/bootdevice/by-name/proinfo          flags=display="Proinfo";backup=1
+
+# Non-Volatile (RAM | DATA | CFG)
+/nvcfg		    ext4	/dev/block/platform/bootdevice/by-name/nvcfg            flags=display="NvCfg";backup=1
+/nvdata		    ext4	/dev/block/platform/bootdevice/by-name/nvdata           flags=display="NvData";backup=1
+/nvram		    emmc	/dev/block/platform/bootdevice/by-name/nvram            flags=display="NvRam";backup=1;flashimg=1
+
+# Subscriber Identification Module (SIM)
+/protect_f	    ext4	/dev/block/platform/bootdevice/by-name/protect1         flags=display="Protect";backup=1
+/protect_s	    ext4	/dev/block/platform/bootdevice/by-name/protect2         flags=backup=1;subpartitionof=/protect_f
+
+# Trusted Execution Environment (TEE) - trustzone
+/tee1		    emmc	/dev/block/platform/bootdevice/by-name/tee1             flags=display="Tee";backup=1;flashimg=1
+/tee2		    emmc	/dev/block/platform/bootdevice/by-name/tee2             flags=backup=1;subpartitionof=/tee1         
+
+# Factory Reset Protection (FRP)
+/persistent	    emmc	/dev/block/platform/bootdevice/by-name/frp              flags=display="frp";backup=1
+
+# Modem
+/md1img		    emmc	/dev/block/platform/bootdevice/by-name/md1img           flags=display="Modem";backup=1;flashimg=1
+/md1dsp         emmc    /dev/block/platform/bootdevice/by-name/md1dsp            flags=display="md1dsp";backup=1
+/md1arm7		    emmc	/dev/block/platform/bootdevice/by-name/md1arm7           flags=display="md1arm7";backup=1
+/md3img         emmc    /dev/block/platform/bootdevice/by-name/md3img            flags=display="md3img";backup=1
+
+# System Control Processor (SCP)
+/scp1		    emmc	/dev/block/platform/bootdevice/by-name/scp1             flags=display="scp1";backup=1
+/scp2		    emmc	/dev/block/platform/bootdevice/by-name/scp2             flags=backup=1;subpartitionof=/scp1         
+
+#Mod lopestom about encrypt_decrypt data
+/oemkeystore		emmc	/dev/block/platform/bootdevice/by-name/oemkeystore
+/keystore		emmc	/dev/block/platform/bootdevice/by-name/keystore
+
+# Other partitions
+/spmfw		    emmc	/dev/block/platform/bootdevice/by-name/spmfw            flags=display="Spm";backup=1
+/sspm_1		    emmc	/dev/block/platform/bootdevice/by-name/sspm_1           flags=display="sspm_1";backup=1
+/sspm_2		    emmc	/dev/block/platform/bootdevice/by-name/sspm_2           flags=backup=1;subpartitionof=/sspm_1
+/efuse     emmc     /dev/block/platform/bootdevice/by-name/efuse                        flags=backup=1
+
+# External-Devices (SDCARD | OTG)
+/external_sd    auto     /dev/block/mmcblk1p1  /dev/block/mmcblk1            flags=display="External_SDcard";storage;wipeingui;removable;fsflags="utf8",encryptable=userdata
+/usbotg        auto     /dev/block/sda1  /dev/block/sda                     flags=display="Usb_Otg";storage;wipeingui;removable;fsflags="utf8"
